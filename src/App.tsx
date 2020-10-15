@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React ,{useState}from 'react';
+import SelectDifficulty from './components/SelectDifficulty'
+import MineSweeper from './components/MineSweeper'
 import './App.css';
 
-function App() {
+
+ function App() {
+ const [isShowGame,setIsShowGame] = useState(false);
+ const [width,setWidth] = useState(0);
+ const [height,setHeight] = useState(0);
+ const [mineCount,setmineCount]=useState(0);
+ function showGame(width:number,height:number,mineCount:number):void{
+   setIsShowGame(true);
+   setWidth(width);
+   setHeight(height);
+   setmineCount(mineCount)
+ }
+ function selectDifficulty():void{
+   setIsShowGame(false);
+ }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className={`app-main ${isShowGame?'show-game':''}`}>
+           <SelectDifficulty
+           showGame ={showGame}
+             ></SelectDifficulty>
+           <MineSweeper/>
+            
+      </div>
     </div>
   );
 }
