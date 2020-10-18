@@ -24,7 +24,14 @@ import './App.css';
            <SelectDifficulty
            showGame ={showGame}
              ></SelectDifficulty>
-           <MineSweeper/>
+           <MineSweeper
+            selectDifficulty ={selectDifficulty}
+            play = {isShowGame}
+            width ={width}
+            height = {height}
+            mineCount = {mineCount}
+           
+           />
             
       </div>
     </div>
