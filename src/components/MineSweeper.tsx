@@ -82,9 +82,8 @@ function calcNeighbourMineCount(width:number,height:number,mines:Array<number>):
 
 }
 
- const panelFlagStyle ={
-     'fontSize':60
- };
+
+
  const panelButton2Style={
      'marginTop':'15px'
  }
@@ -107,7 +106,7 @@ export default class MineSweeper extends React.PureComponent<MineSweeperProps,Mi
 
         if(this.state.selectedMineCount!==prevState.selectedMineCount&&this.state.selectedMineCount === this.props.mineCount){
             const match = this.state.mines.every((isMine,index)=>{
-                if((isMine&&this.state.markStatus[index]===1)||(!isMine&&this.state.markStatus[index]! ==1)){
+                if((isMine&&this.state.markStatus[index]===1)||(!isMine&&this.state.markStatus[index]!==1)){
                     return true;
                 }
                 else{
@@ -215,16 +214,16 @@ export default class MineSweeper extends React.PureComponent<MineSweeperProps,Mi
                 let icon =null;
                 if(this.state.markStatus[index]===1){
                     icon =(
-                        <span className="iconfont">&#xe778</span>
+                        <i className="iconfont icon-qizi"></i>
                     );
                 }else if(this.state.markStatus[index]===2){
                     icon =(
-                        <span className="iconfont">&#xe720</span>
+                        <i className="iconfont icon-wenhao"></i>
                     )
                 }else if(this.state.openStatus[index] === 1){
                     if(this.state.mines[index]){
                         icon = (
-                            <span className="iconfont">&#xe63a;</span>
+                            <i className="iconfont icon-dilei"></i>
                         );
                     }else if(this.state.neighourMineCount[index]>0){
                         icon = (
@@ -248,7 +247,50 @@ export default class MineSweeper extends React.PureComponent<MineSweeperProps,Mi
                 )
 
             }
+            mines.push(
+                <div className="mine-sweeper-row" key={i}>
+                    {row}
+                </div>
+            )
         }
+        return(
+            <div className="mine-sweeper-container"
+             onContextMenu={this.handleContextMenu}
+            >
+              {mines}
+            </div>
+        )
+    }
+    render(){
+        return(
+            <div className="app-section game-container" >
+            {this.renderMines()}
+            <div className="panel-container">
+                <div className="panel-data-container">
+                <i className="iconfont icon-qizi2"></i>
+                    <div>
+                        {this.state.selectedMineCount} / { this.props.mineCount }
+                    </div>
+                </div>
+                <div>
+                    <button
+                        className="mine-sweeper-button"
+                        onClick={this.reStart}
+                    >
+                        重开一局
+                    </button>
+
+                    <button
+                        className="mine-sweeper-button"
+                        style= {panelButton2Style}
+                        onClick={this.selectDifficulty}
+                    >
+                        改变难度
+                    </button>
+                </div>
+            </div>
+        </div>
+        )
     }
 
 }
